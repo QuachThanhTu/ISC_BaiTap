@@ -1,0 +1,9 @@
+.Spiral {
+    width: 700px;
+    height: 400px;
+    background: linear-gradient(0deg, white, red);
+    transform: skewX(73deg) rotate(-20deg);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    position: relative;
+    z-index: 1;
+}

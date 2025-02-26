@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clip 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = 700;
+    canvas.height = 400;
+
+    let percentage = 0;
+    let speed = 0.2;
+    let colorIndex = 0;
+
+    const gradients = [
+      ["red", "white"],
+      ["blue", "white"],
+      ["purple", "white"],
+      ["green", "white"],
+    ];
+
+    function getGradient() {
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, gradients[colorIndex][0]);
+      gradient.addColorStop(1, gradients[colorIndex][1]);
+      return gradient;
+    }
+
+    function animate() {
+      if (document.hidden) return;
+
+      percentage += speed;
+      if (percentage >= 100) {
+        percentage = 0;
+        colorIndex = (colorIndex + 1) % gradients.length;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = getGradient();
+      ctx.fillRect(0, 0, canvas.width, (canvas.height * percentage) / 100);
+
+      requestAnimationFrame(animate);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        requestAnimationFrame(animate);
+      }
+    });
+
+    animate();
+  </script>
+</body>
+
+</html>
